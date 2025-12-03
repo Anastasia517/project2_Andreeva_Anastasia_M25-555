@@ -17,7 +17,7 @@ prettytable = "*"
 ruff = "*"
 
 [tool.poetry.scripts]
-database = "src.primitive_db.main:main"
+project = "src.primitive_db.main:main"
 
 [tool.ruff]
 line-length = 88

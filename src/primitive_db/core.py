@@ -7,6 +7,7 @@ from src.primitive_db.decorators import (
 
 
 def _parse_column_type(col_def):
+    """Парсит определение столбца в формате 'имя:тип'."""
     if ':' not in col_def:
         return None, None
     col_name, col_type = col_def.split(':', 1)
@@ -14,6 +15,7 @@ def _parse_column_type(col_def):
 
 
 def _validate_value_type(value, expected_type):
+    """Проверяет соответствие значения ожидаемому типу."""
     if expected_type == 'int':
         return isinstance(value, int)
     elif expected_type == 'str':
@@ -24,6 +26,7 @@ def _validate_value_type(value, expected_type):
 
 
 def _convert_value(value_str, expected_type):
+    """Преобразует строковое значение в значение нужного типа."""
     value_str = value_str.strip()
     if value_str.startswith('"') and value_str.endswith('"'):
         value_str = value_str[1:-1]
@@ -48,6 +51,7 @@ def _convert_value(value_str, expected_type):
 
 @handle_db_errors
 def create_table(metadata, table_name, columns):
+    """Создает новую таблицу с указанными столбцами."""
     if table_name in metadata:
         return metadata, f'Ошибка: Таблица "{table_name}" уже существует.'
 
@@ -73,6 +77,7 @@ def create_table(metadata, table_name, columns):
 @handle_db_errors
 @confirm_action("удаление таблицы")
 def drop_table(metadata, table_name):
+    """Удаляет таблицу из метаданных."""
     if table_name not in metadata:
         return metadata, f'Ошибка: Таблица "{table_name}" не существует.'
 
@@ -82,6 +87,7 @@ def drop_table(metadata, table_name):
 
 @handle_db_errors
 def list_tables(metadata):
+    """Возвращает список всех таблиц в базе данных."""
     if not metadata:
         return 'Нет созданных таблиц.'
     return '\n'.join(f'- {table_name}' for table_name in metadata.keys())
@@ -90,6 +96,7 @@ def list_tables(metadata):
 @handle_db_errors
 @log_time
 def insert(metadata, table_name, values):
+    """Создает новую запись в указанной таблице."""
     if table_name not in metadata:
         return None, f'Ошибка: Таблица "{table_name}" не существует.'
 
@@ -118,6 +125,7 @@ def insert(metadata, table_name, values):
 @handle_db_errors
 @log_time
 def select(table_data, where_clause=None):
+    """Выбирает записи из таблицы с опциональным условием фильтрации."""
     if where_clause is None:
         return table_data
 
@@ -135,6 +143,7 @@ def select(table_data, where_clause=None):
 
 @handle_db_errors
 def update(table_data, set_clause, where_clause):
+    """Обновляет записи в таблице по условию."""
     updated_count = 0
     for record in table_data:
         match = True
@@ -152,6 +161,7 @@ def update(table_data, set_clause, where_clause):
 @handle_db_errors
 @confirm_action("удаление записи")
 def delete(table_data, where_clause):
+    """Удаляет записи из таблицы по условию."""
     result = []
     deleted_count = 0
     for record in table_data:
@@ -169,6 +179,7 @@ def delete(table_data, where_clause):
 
 @handle_db_errors
 def get_table_info(metadata, table_name, table_data):
+    """Возвращает информацию о таблице."""
     if table_name not in metadata:
         return f'Ошибка: Таблица "{table_name}" не существует.'
 

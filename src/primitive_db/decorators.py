@@ -5,6 +5,7 @@ import prompt
 
 
 def handle_db_errors(func):
+    """Декоратор для обработки ошибок базы данных."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         try:
@@ -26,6 +27,7 @@ def handle_db_errors(func):
 
 
 def confirm_action(action_name):
+    """Декоратор для подтверждения опасных операций."""
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -49,6 +51,7 @@ def confirm_action(action_name):
 
 
 def log_time(func):
+    """Декоратор для измерения времени выполнения функции."""
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.monotonic()
@@ -62,9 +65,11 @@ def log_time(func):
 
 
 def create_cacher():
+    """Создает функцию кэширования с замыканием."""
     cache = {}
 
     def cache_result(key, value_func):
+        """Кэширует результат выполнения функции по ключу."""
         if key in cache:
             return cache[key]
         value = value_func()

@@ -27,6 +27,7 @@ cache_result = create_cacher()
 
 
 def print_help():
+    """Выводит справку по доступным командам."""
     print("\n***Операции с данными***")
     print("Функции:")
     print(
@@ -49,6 +50,7 @@ def print_help():
 
 
 def format_select_result(records, columns):
+    """Форматирует результаты select в таблицу PrettyTable."""
     if not records:
         return "Записи не найдены."
 
@@ -74,6 +76,7 @@ def format_select_result(records, columns):
 
 
 def run():
+    """Основной цикл работы приложения базы данных."""
     print("***Операции с данными***")
     print_help()
 

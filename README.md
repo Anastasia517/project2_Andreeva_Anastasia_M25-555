@@ -21,19 +21,19 @@ poetry install
 Для запуска приложения используйте:
 
 ```bash
+make project
+```
+
+или
+
+```bash
+poetry run project
+```
+
+или
+
+```bash
 make run
-```
-
-или
-
-```bash
-poetry run database
-```
-
-или
-
-```bash
-make database
 ```
 
 ## Управление таблицами

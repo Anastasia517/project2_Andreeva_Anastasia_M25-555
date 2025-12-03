@@ -1,4 +1,5 @@
 def parse_where_clause(where_str):
+    """Парсит условие where в словарь столбец:значение."""
     if '=' not in where_str:
         return None
 
@@ -25,6 +26,7 @@ def parse_where_clause(where_str):
 
 
 def parse_set_clause(set_str):
+    """Парсит условие set в словарь столбец:значение."""
     if '=' not in set_str:
         return None
 
